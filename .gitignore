@@ -1,0 +1,65 @@
+# =========================
+# 1. Environments & Secrets
+# =========================
+.env
+.venv/
+venv/
+env/
+# Ignore all .env files (e.g., .env.local, .env.development)
+.env.* 
+
+# =========================
+# 2. Python Core
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+
+# =========================
+# 3. RAG Specifics (Data & Vector DBs)
+# =========================
+# Ignore your raw documents so you don't commit massive PDFs to GitHub
+data/
+documents/
+ingest/
+*.pdf
+*.csv
+*.jsonl
+*.docx
+
+# Ignore local Vector DB storage (Uncomment based on what you use)
+# chroma_db/
+# *.faiss
+# *.pkl
+# .lancedb/
+
+# =========================
+# 4. Logs & Notebooks
+# =========================
+# RAG prompts and API calls get messy; you will want to ignore logs
+*.log
+# Jupyter Notebook checkpoints (highly common when testing RAG pipelines)
+.ipynb_checkpoints/
+
+# =========================
+# 5. OS & IDEs
+# =========================
+.DS_Store
+.vscode/
+.idea/
+*.swp
