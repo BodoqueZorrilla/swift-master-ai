@@ -1,3 +1,4 @@
+from langchain_community import document_loaders
 from langchain_community.document_loaders import TextLoader
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -20,13 +21,23 @@ def ingest_documents():
     print(f"Loaded {len(documents)} pages from PDFs")
 
     swift_loader = DirectoryLoader(
-        "../../ElectroMX/electromx-ios-app-admin/ElectroMXAdmin", 
-        glob="**/*.swift",
-        loader_cls=TextLoader
-    )
+            "../../ElectroMX/electromx-ios-app-admin/ElectroMXAdmin", 
+            glob="**/*.swift",
+            loader_cls=TextLoader
+        )
     swift_docs = swift_loader.load()
     documents.extend(swift_docs)
 
+    # 2. Correctly pull your active script workspace project context (if separate)
+    if os.path.exists("./my_project"):
+        current_project_loader = DirectoryLoader(
+            "./my_project",
+            glob="**/*.swift",
+            loader_cls=TextLoader
+        )
+        current_docs = current_project_loader.load()
+        documents.extend(current_docs)
+        print(f"Loaded {len(current_docs)} pages from your active local workspace.")
     # Split into chunks (important for code/design docs)
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
